@@ -1,0 +1,29 @@
+{
+  "name": "reack-third-party-api-service",
+  "version": "1.0.0",
+  "description": "Third party API service for ReAck",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reack-dev/reack-third-party-api-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reack-dev/reack-third-party-api-service/issues"
+  },
+  "homepage": "https://github.com/reack-dev/reack-third-party-api-service#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
