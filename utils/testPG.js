@@ -4,5 +4,5 @@ const PG = require('../lib/pg-persistence');
   const PeGe = new PG();
   let response = await PeGe.testQuery1();
 
-  console.log(response);
+  console.log(response.rows);
 })();
