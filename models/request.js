@@ -11,15 +11,24 @@ mongoose.connect(config.MONGODB_URI)
   .catch((err) => logger.info('error connecting to MongoDB: ', err.message));
 
 const requestSchema = new mongoose.Schema({
-  header: {
+  method: {
+    type: String,
+    minLength: 1,
+  },
+  host: {
+    type: String,
+    minLength: 1,
+  },
+  path: {
+    type: String,
+    minLength: 1,
+  },
+  headers: {
     type: Object,
     minLength: 1,
   },
-
-  raw: {
-    type: String,
-  },
-});
+  body: {},
+}, { timestamps: true });
 
 requestSchema.set('toJSON', {
   transform: (document, returnedObject) => {
