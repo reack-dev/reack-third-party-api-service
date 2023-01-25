@@ -3,7 +3,8 @@ const RequestModel = require('../models/request');
 
 requestRouter.post('/', (req, res, next) => {
   const rawRequest = new RequestModel({
-    request: req.headers
+    header: req.headers,
+    raw: req.rawHeaders
   });
 
   rawRequest.save()
