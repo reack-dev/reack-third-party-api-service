@@ -6,7 +6,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const SQL = new PG(); 
 
 requestRouter.post('/', async (req, res, next) => {
-  console.log(req);
+  console.log(req.url, req.originalUrl, req.baseUrl);
   const randomUrl = req.hostname.split(".")[0]; // SWITCH BACK if route path adjusts
   // const randomUrl = req.params.url;
   const rawRequest = new RequestModel({
