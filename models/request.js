@@ -15,7 +15,7 @@ const requestSchema = new mongoose.Schema({
     type: String,
     minLength: 1,
   },
-  host: {
+  randomURL: {
     type: String,
     minLength: 1,
   },

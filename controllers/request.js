@@ -1,20 +1,39 @@
 const requestRouter = require('express').Router();
 const RequestModel = require('../models/request');
+const PG = require('../lib/pg-persistence');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
-requestRouter.post('/', (req, res, next) => {
+const SQL = new PG(); // needs to be same database as URLs from app1/generate Random
+
+requestRouter.post('/', async (req, res, next) => {
+  const randomUrl = req.hostname.split(".")[0];  
   const rawRequest = new RequestModel({
     method: req.method,
-    host: req.hostname,
+    randomURL: randomUrl,
     path: req.path,
     headers: req.headers,
     body: req.body,
   });
 
-  rawRequest.save()
-    .then((saved) => {
-      res.json(saved); // debugging purposes, can be removed
-    })
-    .catch((err) => next(err));
-})
+  const savedRequest = await rawRequest.save();
+  // SEND REQUEST TO APP 1 - NEW REQUEST HAS BEEN RECEIVED
+  console.log(savedRequest);
+
+  const response = await fetch('https://796d-64-137-154-107.ngrok.io/newRequest', {
+    method: 'post',
+    body: JSON.stringify(savedRequest),
+    headers: {'Content-Type': 'application/json'}
+  });
+
+  const data = await response.json();
+
+  console.log("hhhhh", data);
+  
+  const noSqlId = rawRequest.id;
+  const urlId = await SQL.getUrlIdForUrl(randomUrl);
+  
+  await SQL.insertRequestForUrl(noSqlId, urlId, req.method, req.path, req.hostname);
+  
+});
 
 module.exports = requestRouter;
