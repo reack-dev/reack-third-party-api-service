@@ -12,7 +12,8 @@ requestRouter.post('/', (req, res, next) => {
 
   rawRequest.save()
     .then((saved) => {
-      res.json(saved); // debugging purposes, can be removed
+      console.log(saved.id);
+      // res.json(saved); // debugging purposes, can be removed
     })
     .catch((err) => next(err));
 })
