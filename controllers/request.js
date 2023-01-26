@@ -5,6 +5,11 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 const SQL = new PG(); // needs to be same database as URLs from app1/generate Random
 
+requestRouter.get('/', (req, res) => {
+  console.log('hit');
+  res.json('yesesesess');
+});
+
 requestRouter.post('/', async (req, res, next) => {
   const randomUrl = req.hostname.split(".")[0];  
   const rawRequest = new RequestModel({
@@ -19,7 +24,7 @@ requestRouter.post('/', async (req, res, next) => {
   // SEND REQUEST TO APP 1 - NEW REQUEST HAS BEEN RECEIVED
   console.log(savedRequest);
 
-  const response = await fetch('https://796d-64-137-154-107.ngrok.io/newRequest', {
+  const response = await fetch('https://796d-64-137-154-107.ngrok.io/newRequest', { // TODO change with localhost:3000 (wherever app1 is listening)
     method: 'post',
     body: JSON.stringify(savedRequest),
     headers: {'Content-Type': 'application/json'}
