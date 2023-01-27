@@ -21,7 +21,7 @@ requestRouter.post('/', async (req, res, next) => {
   // SEND REQUEST TO APP 1 - NEW REQUEST HAS BEEN RECEIVED
   console.log(savedRequest);
 
-  const response = await fetch('https://kush.chris.connor.maxamoretti.com/newRequest', { 
+  const response = await fetch('http://localhost:3000/newRequest', { 
     method: 'post',
     body: JSON.stringify(savedRequest),
     headers: {'Content-Type': 'application/json'}
